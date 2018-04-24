@@ -20,7 +20,6 @@ let popupBtn = document.getElementById('popup-btn'),
       mainButtons = document.getElementsByClassName('main-buttons')[0],
       crimeBtn = document.getElementById('crime')
       //photos = document.getElementsByClassName('photo')
-     
 
     // console.log(label);
     
@@ -112,8 +111,8 @@ let readyBtn = document.getElementById('ready')
  main.style.display = "block";
  custom.style.display = "none";
 
-
  let mainCardsNew = mainCardsItem[indexGender].cloneNode(true);
+
     mainCardsNew.style.border = "2px solid green"; //временный стиль
     document.body.appendChild(mainCardsNew);
     mainCardsItem[0].parentNode.insertBefore(mainCardsNew, mainCardsItem[1].nextSibling);
@@ -122,16 +121,20 @@ let readyBtn = document.getElementById('ready')
      mainCardsNew.childNodes[1].insertBefore(personConstruct,photo);
      //personConstruct.style.border = "1px solid green";
      photo.parentNode.removeChild(photo);
+ 
+ let result = document.getElementsByClassName('result');
+ 
+ // обнуление результатов
+
+ for ( let i = 0; i < result.length; i++) {
+     result[i].childNodes[3].childNodes[1].style.height = "0";
+     result[i].childNodes[1].textContent = "0%";
+  };
 
 
- let btnReset = document.getElementById('reset');
-
- btnReset.addEventListener('click', function(){
-  alert('hello');
-});   
 
 
-   //let candidateBlock = document.getElementsByClassName('candidate-block');
+   
   //console.log(mainCardsNew.childNodes[1].childNodes[1]);       
 
 
@@ -147,7 +150,25 @@ let readyBtn = document.getElementById('ready')
     mainCardsNew.children[4].textContent = person.selectValue;
     mainCardsNew.children[5].textContent = person.bioValue;
   }); 
+ 
+ let btnReset = document.getElementById('reset');
+     btnReset.addEventListener('click', function(){
+  
+    main.style.display = "none";
+    custom.style.display = "flex";
 
+    // personConstruct.style.display = "block";
+
+       customChar.insertBefore(personConstruct, readyBtn);
+       //console.log(mainCardsItem[2]);
+      // mainCardsItem.removeChild(mainCardsItem[2]);
+      let main2 = document.getElementsByClassName('main-cards')[0];
+      //console.log(main2.childNodes[4]);
+      main2.childNodes[4].parentElement.removeChild(main2.childNodes[4]); 
+      //document.body.removeChild(mainCardsItem[2]);
+        //main2.removeChild(childNodes);
+    //let arrResult = [];
+ });   
 
 
 // radio
