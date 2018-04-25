@@ -111,10 +111,8 @@ for (let a = 0; a < result.length; a++) {
       };   
 };
 
-//'.custom-info input',
- let customInput = document.querySelectorAll('.custom-info select');  
-//console.log(customInput);
 
+ 
 // function clearInput(input) {
 //     for ( let i = 0; i < input; i++) {
 //         input[i].value ='';
@@ -163,7 +161,14 @@ function getBackGround(str, index){
     };
  };
 
-  
+    function clearForm() {
+      let customInfoAll = document.querySelectorAll('.custom-info');  
+         customInfoAll[0].childNodes[3].value = '';
+         customInfoAll[0].childNodes[3].classList.remove('input[type="text"]:focus');
+         customInfoAll[0].childNodes[7].value ='';
+         customInfoAll[0].childNodes[11].selectedIndex = 0;
+         customInfoAll[0].childNodes[15].value ='';
+  };
 
 
  //  function addPercentValue(value,index) {
@@ -180,6 +185,17 @@ function getBackGround(str, index){
         
  //    };
  // };
+
+function capitalFio(fio) {
+  let string = fio;
+  let strFio = '';   
+    if (string.length > 0){
+    strFio = string.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+    } else {
+      fio;
+    }; 
+return strFio;
+};
 
 
 
@@ -209,11 +225,24 @@ let readyBtn = document.getElementById('ready')
  
  // обнуление результатов
   progressValue(0);
+ 
+
+  
 
 
-      let person = {
-          fio: inputName.value,
-          age: inputAge.value,
+// let string = inputName.value;
+// let strFio = '';
+
+// if (string.length > 0){
+// strFio = string.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+// } else {
+//   inputName.value;
+// }; 
+
+
+       let person = {
+          fio: capitalFio(inputName.value),
+          age: inputAge.value + ' лет',
           genderValue: getGender(),
           selectValue: select.value,
           bioValue: bio.value 
@@ -238,7 +267,15 @@ let readyBtn = document.getElementById('ready')
     mainCardsNew.children[3].textContent = person.genderValue;
     mainCardsNew.children[4].textContent = person.selectValue;
     mainCardsNew.children[5].textContent = person.bioValue;
-  }); 
+
+     
+// Исправляем ФИО
+     for (i = 0; i < mainCardsItem.length; i++){
+        nameCardValue = mainCardsItem[i].childNodes[3].textContent;  
+        mainCardsItem[i].childNodes[3].textContent = capitalFio(nameCardValue)
+     };        
+ 
+ }); 
  
  let btnReset = document.getElementById('reset');
      btnReset.addEventListener('click', function(){
@@ -280,25 +317,23 @@ let readyBtn = document.getElementById('ready')
       indexGender = 0;
   }; 
 
- });   
+ 
+ clearForm();
 
+});   
 
+    function arraySum(array) {
+      let sum = 0;
+      for (let i = 0; i < array.length; i++) {
+        sum += +array[i];
+      }
+      return sum;
+    }
 
-
-function arraySum(array) {
-  let sum = 0;
-  for (let i = 0; i < array.length; i++) {
-    sum += +array[i];
-  }
-  return sum;
-}
-
-
-
-//voting
-function sortNumber(a, b) {
-return a - b;
-}
+    //voting
+    function sortNumber(a, b) {
+    return a - b;
+    }
 
 
 let voting = document.getElementById('voting');
@@ -320,7 +355,7 @@ getchempion('main-cards-item-active');
  radioBtn.addEventListener('click', function () {
 
      if (getGender() == 'Женский') {
-    
+     clearForm();
      personSkin.style.cssText = getBackGround(imgSkins ,  5 ); //slideIndex
      personClothes.style.cssText = getBackGround(imgClothes , 5);
      personHair.style.cssText = getBackGround(imgHairs , 5);
@@ -331,6 +366,7 @@ getchempion('main-cards-item-active');
        //clearInput();
       indexGender = 1; 
   } else {
+      clearForm();
       personSkin.style.cssText = getBackGround(imgSkins , 1); // slideIndex
       personClothes.style.cssText = getBackGround(imgClothes , 1);
       personHair.style.cssText = getBackGround(imgHairs , 1);
