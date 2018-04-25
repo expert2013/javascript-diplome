@@ -60,6 +60,29 @@ function defaultSlide(index, typeStyle){
    } 
 }
 
+function randomValue(min, max) {
+    var rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
+  };
+
+
+function genRandom(iloop, sumEqual){
+let arrResult = [0, 0, 0];
+for (let a = 0; a < iloop; a++) {
+
+  for (i = 0; i < arrResult.length; i++) {
+      arrResult[i] = randomValue(1, 50);
+  };
+  
+  let sum = (arraySum(arrResult));
+    if (sum == sumEqual) {
+      return arrResult;
+      break;
+      }; 
+    };
+ };
+
 function getchempion(ReplaceClass) {
     for (i = 0; i < mainCardsItem.length; i++) {
         mainCardsItem[i].classList.remove(ReplaceClass);
@@ -90,7 +113,7 @@ for (let a = 0; a < result.length; a++) {
 
 //'.custom-info input',
  let customInput = document.querySelectorAll('.custom-info select');  
-console.log(customInput);
+//console.log(customInput);
 
 // function clearInput(input) {
 //     for ( let i = 0; i < input; i++) {
@@ -140,20 +163,23 @@ function getBackGround(str, index){
     };
  };
 
-  function addPercentValue(value,index) {
-    let result = document.getElementsByClassName('result'); 
-     for (let i = 0; i < result.length; i++) {
-      if (i == index) {  
-         let heightValue =  parseInt(result[i].childNodes[3].childNodes[1].style.height);
-         value = value + heightValue;
-           if (value <= 100){ 
-            result[i].childNodes[3].childNodes[1].style.height = value + "%";
-            result[i].childNodes[1].textContent = value + "%"; 
-          };
-        };
+  
+
+
+ //  function addPercentValue(value,index) {
+ //    let result = document.getElementsByClassName('result'); 
+ //     for (let i = 0; i < result.length; i++) {
+ //      if (i == index) {  
+ //         let heightValue =  parseInt(result[i].childNodes[3].childNodes[1].style.height);
+ //         value = value + heightValue;
+ //           if (value <= 100){ 
+ //            result[i].childNodes[3].childNodes[1].style.height = value + "%";
+ //            result[i].childNodes[1].textContent = value + "%"; 
+ //          };
+ //        };
         
-    };
- };
+ //    };
+ // };
 
 
 
@@ -164,7 +190,13 @@ function getBackGround(str, index){
 
 // Вмешаться в выборы добавить кандидату 25%
 crimeBtn.addEventListener('click', function() {
-    addPercentValue(25,2); 
+    let arr = genRandom(1000,75);
+     arr[2] = arr[2] + 25;
+    
+      for (i = 0; i < arr.length; i++){
+      progressColumnValue(arr[i],i);   
+  }
+    //addPercentValue(25,2); 
     getchempion('main-cards-item-active'); 
 }); 
 
@@ -250,11 +282,7 @@ let readyBtn = document.getElementById('ready')
 
  });   
 
-function randomValue(min, max) {
-    var rand = min + Math.random() * (max + 1 - min);
-    rand = Math.floor(rand);
-    return rand;
-  };
+
 
 
 function arraySum(array) {
@@ -265,21 +293,7 @@ function arraySum(array) {
   return sum;
 }
 
-function genRandom(iloop, sumEqual){
-let arrResult = [0, 0, 0];
-for (let a = 0; a < iloop; a++) {
 
-  for (i = 0; i < arrResult.length; i++) {
-      arrResult[i] = randomValue(1, 50);
-  };
-  
-  let sum = (arraySum(arrResult));
-    if (sum == sumEqual) {
-      return arrResult;
-      break;
-      }; 
-    };
- };
 
 //voting
 function sortNumber(a, b) {
@@ -294,7 +308,6 @@ let arr = genRandom(1000,100);
   for (i = 0; i < arr.length; i++){
   progressColumnValue(arr[i],i);   
   }
-
 // Первое место
 
 getchempion('main-cards-item-active');
