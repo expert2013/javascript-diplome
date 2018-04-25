@@ -1,3 +1,4 @@
+
 let inputAge = document.getElementById('age'),
     select = document.getElementById('select'),
     bio = document.getElementById('bio'),
@@ -37,8 +38,6 @@ let popupBtn = document.getElementById('popup-btn'),
 
 });
 
-
-
 // hide image
    
 function getGender() {
@@ -60,6 +59,34 @@ function defaultSlide(index, typeStyle){
      
    } 
 }
+
+function getchempion(ReplaceClass) {
+    for (i = 0; i < mainCardsItem.length; i++) {
+        mainCardsItem[i].classList.remove(ReplaceClass);
+    };
+
+let result = document.getElementsByClassName('result'); 
+       let array = [];
+       let arrayTemp = [];
+       let sortArray = [];
+
+     for (let i = 0; i < result.length; i++) {
+         let heightValue =  parseInt(result[i].childNodes[3].childNodes[1].style.height);
+           sortArray[i] = heightValue; 
+           array.push(heightValue);
+      };     
+   
+sortArray = array.sort(sortNumber);
+maxValue = sortArray[sortArray.length-1];
+
+for (let a = 0; a < result.length; a++) {
+         let heightValue =  parseInt(result[a].childNodes[3].childNodes[1].style.height);
+           if (heightValue == maxValue) {
+             mainCardsItem[a].classList.add(ReplaceClass);;
+
+           };               
+      };   
+};
 
 // В разработке!!! 
 // let customInput = document.querySelectorAll('.custom-info input');  
@@ -111,11 +138,33 @@ function getBackGround(str, index){
     };
  };
 
+  function addPercentValue(value,index) {
+    let result = document.getElementsByClassName('result'); 
+     for (let i = 0; i < result.length; i++) {
+      if (i == index) {  
+         let heightValue =  parseInt(result[i].childNodes[3].childNodes[1].style.height);
+         value = value + heightValue;
+           if (value <= 100){ 
+            result[i].childNodes[3].childNodes[1].style.height = value + "%";
+            result[i].childNodes[1].textContent = value + "%"; 
+          };
+        };
+        
+    };
+ };
+
+
 
 
  let skinColor = document.getElementsByClassName('skin-color'), 
     hairStyle = document.getElementsByClassName('hair-style'),
     clothesStyle = document.getElementsByClassName('clothes-style') 
+
+// Вмешаться в выборы добавить кандидату 25%
+crimeBtn.addEventListener('click', function() {
+    addPercentValue(25,2); 
+    getchempion('main-cards-item-active'); 
+}); 
 
 
 
@@ -140,7 +189,7 @@ let readyBtn = document.getElementById('ready')
 
  let mainCardsNew = mainCardsItem[indexGender].cloneNode(true);
 
-    mainCardsNew.style.border = "2px solid green"; //временный стиль
+    //mainCardsNew.style.border = "2px solid green"; //временный стиль
     document.body.appendChild(mainCardsNew);
     mainCardsItem[0].parentNode.insertBefore(mainCardsNew, mainCardsItem[1].nextSibling);
 
@@ -207,8 +256,11 @@ for (let a = 0; a < iloop; a++) {
     };
  };
 
-
 //voting
+function sortNumber(a, b) {
+return a - b;
+}
+
 
 let voting = document.getElementById('voting');
   
@@ -217,9 +269,13 @@ let arr = genRandom(1000,100);
   for (i = 0; i < arr.length; i++){
   progressColumnValue(arr[i],i);   
   }
-// console.log(genRandom(1000,100));
-// progressColumnValue(25,2);
+
+// Первое место
+
+getchempion('main-cards-item-active');
+
 });
+
 
 // radio
 
