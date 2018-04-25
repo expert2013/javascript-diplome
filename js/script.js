@@ -37,6 +37,8 @@ let popupBtn = document.getElementById('popup-btn'),
 
 });
 
+
+
 // hide image
    
 function getGender() {
@@ -90,6 +92,27 @@ function getBackGround(str, index){
   
 }; 
 
+ function progressValue(value) {
+    let result = document.getElementsByClassName('result'); 
+     for (let i = 0; i < result.length; i++) {
+      result[i].childNodes[3].childNodes[1].style.height = value + "%";
+      result[i].childNodes[1].textContent = value + "%";    
+    };
+ };
+
+ function progressColumnValue(value,index) {
+    let result = document.getElementsByClassName('result'); 
+     for (let i = 0; i < result.length; i++) {
+      if (i == index) {  
+          result[i].childNodes[3].childNodes[1].style.height = value + "%";
+          result[i].childNodes[1].textContent = value + "%"; 
+        };
+        
+    };
+ };
+
+
+
  let skinColor = document.getElementsByClassName('skin-color'), 
     hairStyle = document.getElementsByClassName('hair-style'),
     clothesStyle = document.getElementsByClassName('clothes-style') 
@@ -100,7 +123,11 @@ function getBackGround(str, index){
 
 let readyBtn = document.getElementById('ready')
   readyBtn.addEventListener('click', function() {
-  
+ 
+ // обнуление результатов
+  progressValue(0);
+
+
       let person = {
           fio: inputName.value,
           age: inputAge.value,
@@ -122,28 +149,7 @@ let readyBtn = document.getElementById('ready')
      //personConstruct.style.border = "1px solid green";
      photo.parentNode.removeChild(photo);
  
- let result = document.getElementsByClassName('result');
- 
- // обнуление результатов
-
- for ( let i = 0; i < result.length; i++) {
-     result[i].childNodes[3].childNodes[1].style.height = "0";
-     result[i].childNodes[1].textContent = "0%";
-  };
-
-
-
-
-   
-  //console.log(mainCardsNew.childNodes[1].childNodes[1]);       
-
-
-        // if (getGender() == 'Женский') {
-             // candidateBlock[3].insertBefore(personConstruct[0],photos[1]);
-       //  }  else {
-       //        candidateBlock[2].insertBefore(personConstruct[0],photos[1]);
-       //  };
-    
+     
     mainCardsNew.children[1].textContent = person.fio;
     mainCardsNew.children[2].textContent = person.age;
     mainCardsNew.children[3].textContent = person.genderValue;
@@ -167,16 +173,57 @@ let readyBtn = document.getElementById('ready')
       main2.childNodes[4].parentElement.removeChild(main2.childNodes[4]); 
       //document.body.removeChild(mainCardsItem[2]);
         //main2.removeChild(childNodes);
-    //let arrResult = [];
+   
  });   
 
+function randomValue(min, max) {
+    var rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
+  };
+
+
+function arraySum(array) {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += +array[i];
+  }
+  return sum;
+}
+
+function genRandom(iloop, sumEqual){
+let arrResult = [0, 0, 0];
+for (let a = 0; a < iloop; a++) {
+
+  for (i = 0; i < arrResult.length; i++) {
+      arrResult[i] = randomValue(1, 50);
+  };
+  
+  let sum = (arraySum(arrResult));
+    if (sum == sumEqual) {
+      return arrResult;
+      break;
+      }; 
+    };
+ };
+
+
+//voting
+
+let voting = document.getElementById('voting');
+  
+  voting.addEventListener('click', function() {
+let arr = genRandom(1000,100);
+  for (i = 0; i < arr.length; i++){
+  progressColumnValue(arr[i],i);   
+  }
+// console.log(genRandom(1000,100));
+// progressColumnValue(25,2);
+});
 
 // radio
 
  radioBtn.addEventListener('click', function () {
- 
-
-
 
      if (getGender() == 'Женский') {
     
