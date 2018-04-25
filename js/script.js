@@ -226,7 +226,7 @@ let readyBtn = document.getElementById('ready')
  // обнуление результатов
   progressValue(0);
  
-
+//if ((typeof(emp)) === 'string' && (typeof(emp)) != null && emp != '' && emp.length < 50) 
   
 
 
@@ -239,6 +239,16 @@ let readyBtn = document.getElementById('ready')
 //   inputName.value;
 // }; 
 
+  
+
+       //  if ((typeof(emp)) === 'string' && (typeof(emp)) != null && emp != '' && emp.length < 50) 
+
+    // if ((typeof(inputName.value)) === 'string' && (typeof(inputName)) != null && inputName.value != '' && inputName.value.length > 3) {
+    //     alert('ok');
+    // } else {
+    //    alert ('no');
+    // }; 
+    
 
        let person = {
           fio: capitalFio(inputName.value),
@@ -247,6 +257,7 @@ let readyBtn = document.getElementById('ready')
           selectValue: select.value,
           bioValue: bio.value 
        };       
+ 
  main.style.display = "block";
  custom.style.display = "none";
 
