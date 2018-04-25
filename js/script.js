@@ -88,8 +88,10 @@ for (let a = 0; a < result.length; a++) {
       };   
 };
 
-// В разработке!!! 
-// let customInput = document.querySelectorAll('.custom-info input');  
+//'.custom-info input',
+ let customInput = document.querySelectorAll('.custom-info select');  
+console.log(customInput);
+
 // function clearInput(input) {
 //     for ( let i = 0; i < input; i++) {
 //         input[i].value ='';
@@ -222,7 +224,30 @@ let readyBtn = document.getElementById('ready')
       main2.childNodes[4].parentElement.removeChild(main2.childNodes[4]); 
       //document.body.removeChild(mainCardsItem[2]);
         //main2.removeChild(childNodes);
-   
+      
+       if (getGender() == 'Женский') {
+    
+     personSkin.style.cssText = getBackGround(imgSkins ,  5 ); //slideIndex
+     personClothes.style.cssText = getBackGround(imgClothes , 5);
+     personHair.style.cssText = getBackGround(imgHairs , 5);
+     personShoes.style.cssText = getBackGround(imgShoes , 2);
+       defaultSlide(1, skinColor);
+       defaultSlide(4, hairStyle);
+       defaultSlide(4, clothesStyle);
+       //clearInput();
+      indexGender = 1; 
+  } else {
+      personSkin.style.cssText = getBackGround(imgSkins , 1); // slideIndex
+      personClothes.style.cssText = getBackGround(imgClothes , 1);
+      personHair.style.cssText = getBackGround(imgHairs , 1);
+      personShoes.style.cssText = getBackGround(imgShoes , 1);
+       defaultSlide(0, skinColor);
+       defaultSlide(0, hairStyle);
+       defaultSlide(0, clothesStyle);
+       //clearInput();
+      indexGender = 0;
+  }; 
+
  });   
 
 function randomValue(min, max) {
